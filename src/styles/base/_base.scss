@@ -1,0 +1,29 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: $main-font;
+  font-size: $default-font-size;
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+* {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}

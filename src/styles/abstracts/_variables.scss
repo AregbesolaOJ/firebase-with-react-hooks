@@ -1,0 +1,39 @@
+$colors: (
+  dark: #4a4a4a,
+  grey: #9b9b9b,
+  light-grey: rgba(67, 102, 118, 0.15),
+  light-blue: #f7f7fa,
+  white: #fff,
+  black: #000,
+  yellow: #f5a623,
+  green: #50e3c2,
+  watermelon: #fa4659,
+  purple: #6a69e4,
+  cyan: #53c7f0,
+  lavender-blue: #8483fe
+);
+
+$system-font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+$main-font: 'Source Sans Pro', sans-serif;
+$default-font-size: 16px;
+
+$font-sizes: (
+  x-small: 12px,
+  small: 14px,
+  regular: 16px,
+  medium: 18px,
+  large: 24px,
+  m-large: 35px,
+  x-large: 40px,
+  xx-large: 70px
+);
+
+$font-weights: (
+  extra-light: 200,
+  light: 300,
+  regular: 400,
+  semi-bold: 600,
+  bold: 700,
+  black: 900
+);
