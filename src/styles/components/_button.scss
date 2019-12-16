@@ -1,0 +1,40 @@
+
+.btn {
+    border-radius: 0;
+    padding: 0.5rem 3rem;
+    height: 3.5rem;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border: transparent;
+    min-width: 10rem;
+    margin: 0 auto;
+    background: color(lavender-blue);
+    letter-spacing: 1px;
+    transition: 0.3s background, 0.3s transform;
+
+    a {
+        color: inherit !important;
+        text-decoration: none;
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &:hover {
+        background-color: lighten(color(lavender-blue), 2%) !important;
+        transform: translateY(-2px);
+    }
+
+}
+
+.form-error {
+    color: red;
+    margin-top: -1.9rem;
+    margin-bottom: 2rem;
+    max-width: 80%;
+    font-size: 1.2rem;
+}

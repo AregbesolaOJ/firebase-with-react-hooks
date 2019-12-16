@@ -1,0 +1,35 @@
+.dashboard {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 5rem 10rem;
+}
+
+// All users page style
+.users {
+    &__table {
+        position: relative;
+        margin: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+        padding: 2rem 2rem 5rem;
+        width: 100%;
+        overflow: auto;
+
+        &-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 3rem;
+            width: 100%;
+
+            .title {
+                text-transform: capitalize;
+                font-size: get-font-size(large);
+                font-weight: get-font-weight(regular);
+            }
+        }
+    }
+
+}

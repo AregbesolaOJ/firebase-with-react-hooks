@@ -8,21 +8,25 @@ import React, {
     Switch,
     withRouter
   } from 'react-router-dom';
+  import { AuthRoute, NonauthRoute } from 'route-types/PrivateRoutes';
+  import { Loader } from 'components';
+
   import PropTypes from 'prop-types';
   import history from './history';
-  
+
   // pages
   const Home = lazy(() => import('./pages/Home'));
+  const Dashboard = lazy(() => import('./pages/Dashboard/index'));
   const ErrorPage = lazy(() => import('./pages/Error'));
-  
+
   function Scroll(props) {
     React.useEffect(() => {
       window.scrollTo(0, 0);
     }, [props.location]);
-  
+
     return props.children;
   }
-  
+
   Scroll.propTypes = {
     location: PropTypes.object,
     children: PropTypes.oneOfType([
@@ -30,28 +34,42 @@ import React, {
       PropTypes.node
     ])
   };
-  
+
   const ScrollToTop = withRouter(Scroll);
-  
+
   const RouterComponent = () => {
+      const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
+      React.useEffect(() => {
+          const user = JSON.parse(localStorage.getItem('user'));
+          if (user) {
+              setIsLoggedIn(true);
+          }
+      }, [])
+
     return (
       <Router history={history}>
         <ScrollToTop>
           <Switch>
-            <Route
+            <NonauthRoute
               exact
-              path="/"
-              render={routeProps => (
-                <Suspense fallback={<p>Loading...</p>}>
-                  <Home {...routeProps} />
-                </Suspense>
-              )}
+              path="/login"
+              component={Home}
+              isAuthenticated={isLoggedIn}
             />
-            <Route
+
+            <AuthRoute
               exact
               path="/dashboard"
+              component={Dashboard}
+              isAuthenticated={isLoggedIn}
+            />
+
+            <Route
+              exact
+              path="/error404"
               render={routeProps => (
-                <Suspense fallback={<p>Loading...</p>}>
+                <Suspense fallback={<Loader />}>
                   <ErrorPage {...routeProps} />
                 </Suspense>
               )}
@@ -61,6 +79,5 @@ import React, {
       </Router>
     );
   }
-  
+
   export default RouterComponent;
-  

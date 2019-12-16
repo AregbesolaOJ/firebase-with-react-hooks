@@ -1,0 +1,29 @@
+.form-group {
+    border-radius: 4px;
+    color: color(grey);
+    margin-bottom: 20px !important;
+    border: 1px solid rgba(67, 102, 118, 0.15);
+    padding: 0.5rem 1rem;
+    background-color: color(white);
+    transition: box-shadow 0.2s;
+
+    &:focus-within {
+      box-shadow: 0 0 1px 1px rgba(color(black), 0.1);
+    }
+
+    &__label {
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    &__field {
+        border: 0;
+
+        &:focus,
+        &:active {
+            box-shadow: none;
+            border: 0;
+            outline: none !important;
+        }
+    }
+}

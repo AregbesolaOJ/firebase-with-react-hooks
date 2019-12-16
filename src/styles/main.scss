@@ -5,9 +5,7 @@
   'abstracts/animations';
 
 // 2. Vendors
-@import '~react-id-swiper/src/styles/css/swiper.css',
-  '~hamburgers/dist/hamburgers.css', '~bootstrap/dist/css/bootstrap.css',
-  '~react-day-picker/lib/style.css', '~react-toastify/dist/ReactToastify.css';
+@import '~bootstrap/dist/css/bootstrap.css';
 
 // 3. Base stuff
 @import 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
@@ -16,14 +14,7 @@
 @import 'layout/header', 'layout/footer';
 
 // 5. Components
-@import 'components/button', 'components/cards', 'components/cost',
-  'components/datepicker', 'components/forms', 'components/loader',
-  'components/modal', 'components/notification', 'components/pagination',
-  'components/profile', 'components/table', 'components/task-container',
-  'components/toast', 'components/toggler', 'components/upload-file';
+@import 'components/input', 'components/button', 'components/loader', 'components/table';
 
 // 6. Page-specific styles
-@import 'pages/audit', 'pages/auth', 'pages/dashboard', 'pages/errorPage',
-  'pages/settings/branches', 'pages/settings/department', 'pages/settings/index',
-  'pages/settings/roles', 'pages/settings/setup', 'pages/settings/services',
-  'pages/settings/staff', 'pages/task';
+@import 'pages/home', 'pages/dashboard';

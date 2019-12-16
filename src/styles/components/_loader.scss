@@ -1,0 +1,17 @@
+.page-loader {
+    position: relative;
+    width: 100vw;
+    min-height: 100vh;
+    background: color(lavender-blue);
+
+    &__spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        img {
+            max-width: 100%;
+        }
+    }
+}

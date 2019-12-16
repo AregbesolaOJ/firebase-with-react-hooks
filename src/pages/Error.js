@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 const ErrorPage = props => {
   const goHome = () => {
@@ -6,7 +7,7 @@ const ErrorPage = props => {
   };
 
   return (
-    <div className="">
+    <div className="container">
       <div className="">
         <img loading="lazy" src={'https://picsum.photos/400'} alt="404 Error" className="img-fluid" />
       </div>
@@ -17,10 +18,13 @@ const ErrorPage = props => {
           page may have moved.
         </p>
       </div>
-
-      <button className="btn btn__primary--outline" onClick={() => goHome()}>
-        GO BACK
-      </button>
+        <Button
+            className="btn btn__primary--outline"
+            block
+            onClick={goHome}
+        >
+            go back
+        </Button>
     </div>
   );
 };

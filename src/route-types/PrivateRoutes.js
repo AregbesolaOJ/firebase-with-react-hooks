@@ -1,31 +1,21 @@
 import React, { Suspense } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Loader } from 'components';
 
 export const AuthRoute = ({
   component: Component,
   isAuthenticated,
-  accessGranted,
   ...rest
 }) => (
   <Route
     {...rest}
     render={props => {
-      if (isAuthenticated && accessGranted) {
-        return (
-          <Suspense fallback={<p>Loading...</p>}>
-            <Component {...props} />{' '}
-          </Suspense>
-        );
-      }
       if (isAuthenticated) {
         return (
-          <Redirect
-            to={{
-              pathname: '/select-branch',
-              state: { from: props.location.pathname }
-            }}
-          />
+          <Suspense fallback={<Loader />}>
+            <Component {...props} />{' '}
+          </Suspense>
         );
       }
       return (
@@ -51,11 +41,11 @@ export const NonauthRoute = ({
       isAuthenticated ? (
         <Redirect
           to={
-            props.location.state ? props.location.state.from : '/select-branch'
+            props.location.state ? props.location.state.from : '/dashboard'
           }
         />
       ) : (
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Loader />}>
           <Component {...props} />
         </Suspense>
       )
@@ -67,7 +57,6 @@ AuthRoute.propTypes = {
   location: PropTypes.object,
   component: PropTypes.object,
   isAuthenticated: PropTypes.bool,
-  accessGranted: PropTypes.bool
 };
 
 NonauthRoute.propTypes = {
