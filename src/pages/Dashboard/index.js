@@ -26,7 +26,7 @@ const Dashboard = () => {
           />
 
           <Route
-            path="/dashboard/user:id"
+            path="/dashboard/user/:id"
             render={routeProps => (
               <Suspense fallback={<Loader />}>
                 <User {...routeProps} />
@@ -44,7 +44,7 @@ const Dashboard = () => {
           />
 
           <Route
-            path="/dashboard/edit:id"
+            path="/dashboard/edit/:id"
             render={routeProps => (
               <Suspense fallback={<Loader />}>
                 <Edit {...routeProps} />
@@ -53,7 +53,6 @@ const Dashboard = () => {
           />
 
           <Route
-            path="/error404"
             render={routeProps => (
               <Suspense fallback={<Loader />}>
                 <ErrorPage {...routeProps} />

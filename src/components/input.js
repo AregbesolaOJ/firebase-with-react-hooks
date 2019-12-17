@@ -13,7 +13,7 @@ export const FormInput = props => {
             autoComplete={props.autoComplete}
             required={props.isRequired}
             className="form-group__field"
-            aria-labelledBy={props.id}
+            aria-labelledby={props.id}
             disabled={props.isDisabled}
             name={props.id}
             placeholder={props.placeholder}

@@ -3,76 +3,134 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
+import firebase from '../../firebase';
+import {
+  Loader,
+} from 'components';
 
-const AllUSers = (props) => {
+const AllUSers = props => {
 
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log('all users list');
-    // this.props.history.push('/login');
+    setLoading(true);
+    const fetchUsers = firebase.firestore().collection('users')
+    const collections = querySnapshot => {
+        const _users = [];
+        querySnapshot.forEach(user => {
+            const { name, email, contact } = user.data();
+            _users.push({
+                id: user.id,
+                user,
+                name,
+                email,
+                contact,
+            })
+        });
+        setUsers(_users);
+        setLoading(false);
+    }
+    fetchUsers.onSnapshot(collections);
   }, []);
 
+  const handleDelete = id => {
+      let confirmation = window.confirm("Are you sure you want to remove this user?");
+      if (confirmation) {
+        firebase.firestore().collection('users').doc(id).delete()
+            .then(() => console.log("successfully deleted"))
+            .catch(() => alert("An error was encountered while removing this user, please try again"));
+      }
+  }
+
   return (
-    <div className="users">
-        <div className="users__table">
-            {!users.length ? (
-            <div className="settings__empty settings__empty-onboarding">
-                <p>No user created yet</p>
-                <Button
-                    className="btn btn__primary"
-                >
-                    <NavLink to="/dashboard/create">
-                        create a user
-                    </NavLink>
-                </Button>
-            </div>
+      <>
+        {loading ? (
+            <Loader />
             ) : (
-            <>
-                <div className="users__table-heading">
-                    <h2 className="title">all users</h2>
-                    <div className="create-button">
-                        <Button
-                            className="btn btn__primary"
-                        >
-                            <NavLink to="/dashboard/create">
-                                create a user
-                            </NavLink>
-                        </Button>
-                    </div>
-                </div>
-                <table className="table">
-                <thead className="table-header">
-                    <tr>
-                        <th className="table-head">Name</th>
-                        <th className="table-head">Email</th>
-                        <th className="table-head">Status</th>
-                    </tr>
-                </thead>
-                <tbody className="table-body">
-                    {users.map(selected => {
-                        const { _id, status, name, email, contact} = selected;
-                        return (
-                            <tr
-                                className={status ? 'deactivated' : ''}
-                                key={_id}
-                                id={_id}
-                            >
-                                <td className="table-cell">
-                                    <NavLink to={`/dashboard/user/${_id}`}>{name}</NavLink>
-                                </td>
-                                <td className="table-cell">{email}</td>
-                                <td className="table-cell">{contact}</td>
-                                <td className="table-cell">{status ? 'Active': 'Deactivated'}</td>
+                <div className="users">
+                    <div className="users__table">
+                        {!users.length ? (
+                            <div className="empty-screen">
+                                <p>No user created yet</p>
+                                <Button
+                                    className="btn btn__primary"
+                                >
+                                    <NavLink to="/dashboard/create">
+                                        create a user
+                                    </NavLink>
+                                </Button>
+                            </div>
+                    ) : (
+                    <>
+                        <div className="users__table-heading">
+                            <h2 className="title">all users</h2>
+                            <div className="create-button">
+                                <Button
+                                    className="btn btn__primary"
+                                >
+                                    <NavLink to="/dashboard/create">
+                                        create a user
+                                    </NavLink>
+                                </Button>
+                            </div>
+                        </div>
+                        <table className="table">
+                        <thead className="table-header">
+                            <tr>
+                                <th className="table-head">Name</th>
+                                <th className="table-head">Email</th>
+                                <th className="table-head">Contact</th>
+                                <th className="table-head">Actions</th>
                             </tr>
-                        );
-                    })}
-                </tbody>
-                </table>
-            </>
-            )}
-        </div>
-    </div>
+                        </thead>
+                        <tbody className="table-body">
+                            {users.map(selected => {
+                                const { id, status, name, email, contact} = selected;
+                                return (
+                                    <tr
+                                        className={status ? 'deactivated' : ''}
+                                        key={id}
+                                        id={id}
+                                    >
+                                        <td className="table-cell">{name}</td>
+                                        <td className="table-cell">{email}</td>
+                                        <td className="table-cell">{contact}</td>
+                                        <td className="table-cell">
+                                            <span className="table-cell__icon">
+                                                <NavLink to={`/dashboard/user/${id}`}>
+                                                    <i
+                                                        className="far fa-eye"
+                                                    />
+                                                </NavLink>
+                                            </span>
+                                            <span className="table-cell__icon">
+                                                <NavLink to={`/dashboard/edit/${id}`}>
+                                                    <i
+                                                        className="far fa-edit"
+                                                    />
+                                                </NavLink>
+                                            </span>
+                                            <span className="table-cell__icon delete">
+                                                <i
+                                                    onClick={() => handleDelete(id)}
+                                                    className="fa fa-trash"
+                                                    aria-hidden="true"
+                                                />
+                                            </span>
+
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                        </table>
+                    </>
+                    )}
+                </div>
+            </div>
+        )}
+    </>
   );
 }
 export default AllUSers;

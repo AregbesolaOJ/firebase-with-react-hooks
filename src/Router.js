@@ -48,26 +48,24 @@ import React, {
       }, [])
 
     return (
-      <Router history={history}>
+
+        <Router history={history}>
         <ScrollToTop>
           <Switch>
             <NonauthRoute
               exact
-              path="/login"
+              path="/"
               component={Home}
               isAuthenticated={isLoggedIn}
             />
 
             <AuthRoute
-              exact
               path="/dashboard"
               component={Dashboard}
               isAuthenticated={isLoggedIn}
             />
 
             <Route
-              exact
-              path="/error404"
               render={routeProps => (
                 <Suspense fallback={<Loader />}>
                   <ErrorPage {...routeProps} />

@@ -5,40 +5,61 @@ import { FormInput } from 'components';
 import firebase from '../../firebase';
 
 const Create = props => {
-    const [state, setState] = useState({
-        name: '',
-        email: '',
-        contact: '',
-        error: '',
-    })
-    const { name, email, contact, error } = state;
-    const firebaseController = firebase.firestore().collection('boards');
+    const [error, setError] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState(false);
+    const [contact, setContact] = useState('');
+    const [isSaving, setIsSaving] = useState(false);
+
+    const firebaseController = firebase.firestore().collection('users');
+
     const handleChange = (e, attr) => {
         const { value } = e.target;
+        setError('');
+        if (attr === 'name') {
+            setName(value);
+        }
+        if (attr === 'email') {
+            const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            setEmailError(!email.match(regexEmail));
+            setEmail(value);
+        }
+        if (attr === 'contact') {
+            setContact(value);
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        firebaseController.add({
-        name,
-        email,
-        contact
-        }).then((docRef) => {
-        setState({
-            name: '',
-            email: '',
-            contact: ''
-        });
-        props.history.push("/")
-        })
-        .catch((error) => {
-            console.error("Error adding document: ", error);
-        });
+        if (!name) {
+            setError('*Name is required');
+        } else if ((name && !email) || (name && emailError)) {
+            setError('*Email field is empty or incorrect');
+        } else if (!contact || contact.length < 10) {
+            setError('*Phone Contact is missing or incomplete');
+        } else {
+            setIsSaving(true);
+            firebaseController.add({
+                name,
+                email,
+                contact
+                }).then(() => {
+                    setName('');
+                    setEmail('');
+                    setContact('');
+                    setIsSaving(false);
+                    props.history.push("/dashboard");
+                })
+                .catch(err => {
+                    setError(err);
+                    setIsSaving(false);
+                });
+        }
     }
 
 return (
-    <div className="users">
+    <div className="users create-user">
         <div className="users__table">
             <div className="users__table-heading">
                 <h2 className="title">Create User</h2>
@@ -93,9 +114,10 @@ return (
                         className="btn btn__primary--outline"
                         block
                         id="submit"
+                        disabled={isSaving}
                         onClick={handleSubmit}
                     >
-                        Sign in
+                        {isSaving ? `Saving...` : `Save`}
                     </Button>
                 </div>
                 </div>

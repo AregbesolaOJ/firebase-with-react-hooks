@@ -8,6 +8,15 @@
     border-collapse: collapse;
 
     &-body {
+        @include respond('as') {
+            tr {
+                td:nth-child(2) {
+                    display: none;
+                }
+
+            }
+        }
+
       tr:nth-child(1) {
         td {
           padding-top: 4rem !important;
@@ -16,14 +25,8 @@
 
       tr {
         td:nth-child(1) {
-            a {
-                color: #f9a949;
-            }
+            text-transform: capitalize;
         }
-      }
-
-      .deactivated {
-        opacity: 0.4;
       }
     }
 
@@ -33,9 +36,31 @@
       border-bottom: 1px solid color(light-grey) !important;
       font-size: 1.4rem;
       color: rgba(74, 74, 74, 0.72);
+
+      &__icon {
+          margin: 0 5px;
+          cursor: pointer;
+
+          a {
+              color: inherit !important;
+          }
+        }
+
+        .delete {
+            color: red;
+            opacity: .6;
+        }
     }
 
     &-header {
+      @include respond('as') {
+          tr {
+              th:nth-child(2) {
+                  display: none;
+              }
+          }
+      }
+
       background: #f6f9ee;
       text-transform: capitalize;
     }

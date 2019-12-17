@@ -7,24 +7,26 @@ const ErrorPage = props => {
   };
 
   return (
-    <div className="container">
-      <div className="">
-        <img loading="lazy" src={'https://picsum.photos/400'} alt="404 Error" className="img-fluid" />
+    <div className="dashboard error-page">
+      <div className="error-page__tile">
+        <img src={'https://picsum.photos/400'} alt="404 Error" className="img-fluid" />
       </div>
-      <div className="">
-        <h3 className="">We couldn’t find the page</h3>
-        <p className="">
+      <div className="error-page__main">
+        <h3 className="title">We couldn’t find the page</h3>
+        <p className="subtitle">
           This page was not found. You may have mistyped the address or the
           page may have moved.
         </p>
       </div>
+      <div className="error-page__action">
         <Button
             className="btn btn__primary--outline"
             block
             onClick={goHome}
         >
-            go back
+            go to dashboard
         </Button>
+       </div>
     </div>
   );
 };

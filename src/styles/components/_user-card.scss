@@ -1,0 +1,83 @@
+.user-card {
+    padding: 2rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+
+    &__header {
+        @include respond('as') {
+            flex-direction: column;
+        }
+
+        display: flex;
+        align-items: center;
+        padding-left: 1rem;
+
+        &-avatar {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            margin-right: 2rem;
+            background-color: rgba($color: #000000, $alpha: 0.1);
+            color: color(lavender-blue);
+        }
+
+        &-title {
+            text-transform: capitalize;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .username {
+                font-size: 16px;
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+
+        &-navigate {
+            @include respond('as') {
+                margin: 0;
+            }
+
+            margin-left: auto;
+
+            .btn {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+    }
+
+    &__about {
+        @include respond('as') {
+            width: 100%;
+            padding: 0;
+        }
+        width: 70%;
+        margin: 5rem 0;
+        padding: 0 2rem;
+    }
+
+    &__footer {
+        @include respond('as') {
+            flex-direction: column;
+            width: 100%;
+
+            .btn {
+                width: 100% !important;
+                margin: 5px 0;
+            }
+        }
+        width: 70%;
+        display: flex;
+        justify-content: space-around;
+
+        .btn {
+            width: 45%;
+        }
+    }
+}
