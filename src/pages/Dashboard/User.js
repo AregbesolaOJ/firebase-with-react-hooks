@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Usercard } from 'components';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import firebase from '../../firebase';
+import firebase from 'firedb';
 
 const User = props => {
     const [state, setState] = useState({

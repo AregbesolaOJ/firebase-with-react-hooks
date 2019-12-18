@@ -1,2 +1,0 @@
-export const UPDATE_AUTH_STATUS = 'UPDATE_AUTH_STATUS';
-export const SIGNING_IN = 'SIGNING_IN';

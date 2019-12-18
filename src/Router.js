@@ -1,4 +1,5 @@
 import React, {
+    useContext,
     lazy,
     Suspense,
   } from 'react';
@@ -10,6 +11,7 @@ import React, {
   } from 'react-router-dom';
   import { AuthRoute, NonauthRoute } from 'route-types/PrivateRoutes';
   import { Loader } from 'components';
+  import authContext from 'contexts/AuthContext';
 
   import PropTypes from 'prop-types';
   import history from './history';
@@ -38,14 +40,8 @@ import React, {
   const ScrollToTop = withRouter(Scroll);
 
   const RouterComponent = () => {
-      const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-      React.useEffect(() => {
-          const user = JSON.parse(localStorage.getItem('user'));
-          if (user) {
-              setIsLoggedIn(true);
-          }
-      }, [])
+    const { isLoggedIn } = useContext(authContext);
 
     return (
 

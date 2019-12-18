@@ -1,3 +1,5 @@
+// My schema for combining multiple reducers into one root reducer
+
 import userReducer from './user.reducer';
 import authReducer from './auth.reducer';
 

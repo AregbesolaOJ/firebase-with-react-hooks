@@ -1,19 +1,14 @@
-import { UPDATE_AUTH_STATUS, SIGNING_IN } from '../actions/types';
-
 const defaultState = {
-  authState: false,
-  loadingSignIn: false
+  authenticated: false,
+  isLoggedIn: false
 };
+
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case 'setUser':
-      return { ...state, user: action.user };
-    case 'setAuthData':
-      return { ...state, authData: action.authData };
-    case UPDATE_AUTH_STATUS:
-      return { ...state, authState: action.authState };
-    case SIGNING_IN:
-      return { ...state, loadingSignIn: action.loadingState };
+    case 'UPDATE_AUTH_STATUS':
+      return { ...state, authenticated: action.authenticated };
+    case 'SIGNING_IN':
+      return { ...state, isLoggedIn: action.isLoggedIn };
     default:
       return { ...state };
   }

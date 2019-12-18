@@ -1,17 +1,19 @@
 /* eslint-disable no-console */
 /* eslint-disable linebreak-style */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import firebase from '../../firebase';
+import firebase from 'firedb';
 import {
   Loader,
 } from 'components';
+import authContext from 'contexts/AuthContext';
 
 const AllUSers = props => {
 
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { setIsLoggedIn } = useContext(authContext);
 
   useEffect(() => {
     setLoading(true);
@@ -38,10 +40,22 @@ const AllUSers = props => {
       let confirmation = window.confirm("Are you sure you want to remove this user?");
       if (confirmation) {
         firebase.firestore().collection('users').doc(id).delete()
-            .then(() => console.log("successfully deleted"))
             .catch(() => alert("An error was encountered while removing this user, please try again"));
       }
   }
+
+  const handleSignOut = () => {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        localStorage.removeItem("user");
+        window.location.href = "/";
+        setIsLoggedIn(false);
+      }).catch(err => {
+        // An error happened.
+        console.log(err);
+        alert('Error: failed to signout user');
+      });
+  };
 
   return (
       <>
@@ -128,6 +142,12 @@ const AllUSers = props => {
                     </>
                     )}
                 </div>
+                <Button
+                    className="btn btn__primary signout"
+                    onClick={handleSignOut}
+                >
+                    sign out
+                </Button>
             </div>
         )}
     </>

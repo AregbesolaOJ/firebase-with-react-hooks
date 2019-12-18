@@ -6,14 +6,14 @@
 
 // Error page style
 .error-page {
+    @include respond('xs') {
+        padding: 5rem;
+    }
     padding: 10rem;
 
     &__tile {
-        height: 20rem;
-        width: 20rem;
-        border-radius: 50%;
+        @include roundImage(20rem);
         margin: 10px auto;
-        overflow: hidden;
 
         img {
             max-width: 100%;
@@ -22,16 +22,22 @@
     }
 
     &__main {
+        @include respond('xs') {
+            padding: 2rem;
+        }
+
         text-align: center;
         padding: 2rem 10rem;
 
         .title {
-            font-weight: 550;
-            font-size: 24px;
+            @include font-size(large);
+            @include font-weight(semi-bold);
+            @include triangle(top, 3px, color(lavender-blue));
+            margin-bottom: 20px;
         }
 
         .subtitle {
-            font-size: 18px;
+            @include font-size(medium);
         }
     }
 
@@ -51,10 +57,11 @@
         padding: 5rem 1rem;
     }
     padding: 5rem 10rem;
+    position: relative;
 
     &__table {
         position: relative;
-        margin: 10px;
+        margin-bottom: 3rem;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
         border-radius: 4px;
         padding: 2rem 2rem 5rem;
@@ -78,6 +85,18 @@
                 font-weight: get-font-weight(regular);
             }
         }
+    }
+
+    .signout {
+        @include respond('xs') {
+            position: relative;
+            margin: auto;
+            width: 20rem;
+        }
+
+        position: absolute;
+        bottom: 0;
+        left: 10rem;
     }
 
 }

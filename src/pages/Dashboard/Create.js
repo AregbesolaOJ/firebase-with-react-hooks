@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, Form } from 'reactstrap';
 import { FormInput } from 'components';
-import firebase from '../../firebase';
+import firebase from 'firedb';
 
 const Create = props => {
     const [error, setError] = useState('');

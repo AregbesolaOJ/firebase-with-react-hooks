@@ -1,20 +1,16 @@
 @charset 'UTF-8';
 
 // 1. Configuration and helpers
-@import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins',
-  'abstracts/animations';
+@import 'abstracts/variables', 'abstracts/functions', 'abstracts/mixins';
 
 // 2. Vendors
 @import '~bootstrap/dist/css/bootstrap.css';
 
 // 3. Base stuff
-@import 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
-
-// 4. Layout-related sections
-@import 'layout/header', 'layout/footer';
+@import 'base/base', 'base/fonts';
 
 // 5. Components
 @import 'components/input', 'components/button', 'components/loader', 'components/table', 'components/user-card';
 
 // 6. Page-specific styles
-@import 'pages/home', 'pages/dashboard';
+@import 'pages/login', 'pages/dashboard';

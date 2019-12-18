@@ -85,28 +85,6 @@
   }
 }
 
-@mixin absCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@mixin keyframes($animationName) {
-  @-webkit-keyframes #{$animationName} {
-    @content;
-  }
-  @-moz-keyframes #{$animationName} {
-    @content;
-  }
-  @-o-keyframes #{$animationName} {
-    @content;
-  }
-  @keyframes #{$animationName} {
-    @content;
-  }
-}
-
 @mixin roundImage($size) {
   border-radius: 50%;
   height: $size;
@@ -117,29 +95,5 @@
     height: 100%;
     object-fit: cover;
     width: 100%;
-  }
-}
-
-@mixin paddingResponsive($xs, $sm, $md) {
-  padding: $md;
-
-  @include respond('sm') {
-    padding: $sm;
-  }
-
-  @include respond('xs') {
-    padding: $xs;
-  }
-}
-
-@mixin fontResponsive($xs, $sm, $md) {
-  font-size: $md;
-
-  @include respond('sm') {
-    font-size: $sm;
-  }
-
-  @include respond('xs') {
-    font-size: $xs;
   }
 }

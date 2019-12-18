@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/src/fireDb.js
 /.pnp
 .pnp.js
 

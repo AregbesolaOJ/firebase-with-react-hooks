@@ -1,64 +1,52 @@
 /* eslint-disable no-console */
 /* eslint-disable linebreak-style */
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button } from 'reactstrap';
 import { FormInput } from 'components';
+import authContext from 'contexts/AuthContext';
+import firebase from 'firedb';
 
-const Home = (props) => {
+const Home = () => {
 
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
+  const [password, setPassword] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    console.log('welcome to my app');
-    // this.props.history.push('/login');
-  }, []);
+  const { setIsLoggedIn } = useContext(authContext);
 
   const goForward = () => {
-    if (!name) {
-        setError('*Name is required');
-    } else if (name && !email) {
-        setError('*Email address is required');
-    } else if (name && email && !emailError) {
+      if (password && email) {
+        setIsSaving(true);
         setError('');
-        const user = { name, email };
-        localStorage.setItem('user', JSON.stringify(user));
-        props.history.push('/dashboard');
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            // Handle Successful sign in here.
+            setIsSaving(false);
+            setIsLoggedIn(true);
+            // window.location.href = "/dashboard";
+        })
+        .catch(err => {
+            // Handle Errors here.
+            setError(err.code);
+            setIsSaving(false);
+          });
     } else {
-        setError('*Please enter a valid email address');
+        setError('*Both fields are required');
     }
   };
 
   const handleChange = (e, attr) => {
       const { value } = e.target;
       setError('');
-      if (attr === 'name') {
-          setName(value);
-      } else {
-        const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        setEmailError(!email.match(regexEmail));
-        setEmail(value);
-      }
+      attr === 'password' ? setPassword(value) : setEmail(value);
   }
+
   return (
   <div className="login">
       <div className="login-form">
-        <h1 className="login-form__heading">Home</h1>
+        <h1 className="login-form__heading">Login</h1>
             <Form onSubmit={e => e.preventDefault()} className="form__settings">
                 <div className="row">
-                <div className="col-md-12">
-                    <FormInput
-                        label="Name"
-                        isRequired={true}
-                        placeholder="Enter name"
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={e => handleChange(e, 'name')}
-                    />
-                </div>
                 <div className="col-md-12">
                     <FormInput
                         label="Email"
@@ -70,15 +58,27 @@ const Home = (props) => {
                         onChange={e => handleChange(e, 'email')}
                     />
                 </div>
+                <div className="col-md-12">
+                    <FormInput
+                        label="Password"
+                        isRequired={true}
+                        placeholder="Enter password"
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={e => handleChange(e, 'password')}
+                    />
+                </div>
                 <div className="col-md-12 form-error">{error}</div>
                 <div className="col-md-12">
                     <Button
                         className="btn btn__primary--outline"
                         block
                         id="submit"
+                        disabled={isSaving}
                         onClick={goForward}
                     >
-                        Sign in
+                                {isSaving ? `Signing in..` : `Sign in`}
                     </Button>
                 </div>
                 </div>

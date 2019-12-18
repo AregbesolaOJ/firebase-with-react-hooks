@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Button, Form } from 'reactstrap';
 import { FormInput, Loader } from 'components';
 import PropTypes from 'prop-types';
-import firebase from '../../firebase';
+import firebase from 'firedb';
 
 const Edit = props => {
     const [state, setState] = useState({

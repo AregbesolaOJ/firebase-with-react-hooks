@@ -1,21 +1,12 @@
 const defaultState = {
-  email: '',
-  name: 'Summmitech NG',
-  avatarUrl: '',
-  authData: {
-    roleId: '',
-    branchId: '',
-    organizationId: '',
-    departmentIds: []
-  }
+    name: 'Aregbesola John',
+    authData: {}
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case 'add':
-      return { ...state, avatarUrl: state.avatarUrl + action.value };
-    case 'onload':
-      return { ...state, branchList: 'olawale' };
+    case 'Edit_Name':
+      return { ...state, name: action.payload };
     default:
       return { ...state };
   }
